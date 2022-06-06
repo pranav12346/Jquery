@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1>Hi welcome to another jquery example programs</h1>
+    <ul class="main">
+      <li>one</li>
+      <li class="special">two</li>
+      <li>three</li>
+      <li>
+        <ul class="sublist">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>
+
+<script>
+  $(function () {
+    $("  li").on("click", function () {
+      if ($(this).parent().is(".sublist")) {
+        $(this).hide()
+      }
+      if ($(this).is(".special")) {
+        alert("special")
+      }
+    })
+  })
+</script>
+<style>
+  h1 {
+    border: 1px solid black;
+    text-align: center;
+    color: lightgreen;
+  }
+  ul.main li {
+    display: list-item;
+    list-style-type: disc;
+  }
+  ul.sublist li {
+    display: list-item;
+    list-style-type: circle;
+  }
+  li {
+    display: block;
+  }
+  .special {
+    color: orange;
+  }
+</style>

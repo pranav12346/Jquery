@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ajax tutorial</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.3/mustache.js"></script>
+
+
+
+</script>
+  </head>
+  <body>
+    <h1>jquery Ajax tutorial</h1>
+    <h2>Bio Data form</h2>
+    <ul id="details"></ul>
+    <h4>Users data</h4>
+  
+<template id="users-template">
+  <li>
+      <p>
+        <strong> name:</strong>
+         <span class="noedit name">{{name}}</span>
+          <input type="text" class="edit name">
+      </p>
+      <p><strong>email:</strong>
+        <span class="noedit email">{{email}}</span>
+          <input type="text" class="edit email">
+      </p>
+              <button data-id='{{id}}' class='remove'>x</button>
+      <button class="editOrder noedit">edit</button>
+       <button class="saveEdit edit">save</button>
+        <button class="cancelEdit edit">cancel</button>
+      </li>
+</template>
+    <div>
+      <label for="Name">name:</label>
+      <input type="text" id="Name" />
+    </div>
+    <br />
+
+    <div>
+      <label for="Email">email:</label>
+      <input type="text" id="email" />
+    </div>
+    <br />
+ <button id="add-details">Add</button>
+  </body>
+</html>
+
+<script>
+    "use strict"
+  $(function () {
+    var Details = $("#details")
+  
+    var name = $("#Name")
+    var email = $("#email")
+    var userTemplate=$("#users-template").html()
+
+    function addDetails(user) {
+      Details.append(
+        Mustache.render(userTemplate,user)
+      )
+    }
+    $.ajax({
+      type: "GET",
+      url: "https://jsonplaceholder.typicode.com/users",
+      success: function (Users) {
+        console.log("data", Users)
+        $.each(Users, function (i, user) {
+          addDetails(user)
+        })
+      },
+      error: function () {
+        alert("error logging orders")
+      }
+    })
+    $("#add-details").on("click", function () {
+      var details = {
+  
+        name: name.val(),
+        email: email.val()
+      }
+      $.ajax({
+        type: "POST",
+        url: "https://jsonplaceholder.typicode.com/users",
+        data: details,
+        success: function (newUsers) {
+          addDetails(newUsers)
+        }
+      })
+    })
+
+    Details.delegate(".remove","click",function(){
+      var Li=$(this).closest("li")
+      Li.remove()
+  
+    })
+
+    Details.delegate('.editOrder','click',function() {
+      var Li=$(this).closest("li")
+      Li.find('input.name').val(Li.find("span.name").html() )
+       Li.find('input.email').val(Li.find("span.email").html() )
+       Li.addClass("edit")
+    })
+
+    Details.delegate('.cancelEdit','click',function() {
+      $(this).closest("li").removeClass("edit")
+    })
+      
+Details.delegate('.saveEdit','click',function() {
+     var Li= $(this).closest("li")
+      Li.find("span.name").html(Li.find("input.name").val())
+          Li.find("span.email").html(Li.find("input.email").val())
+          Li.removeClass('edit')
+     
+    })
+
+    })
+
+</script>
+<style>
+  h1 {
+    border: 1px solid rgb(146, 109, 109);
+    text-align: center;
+    color: green;
+    background-color: yellow;
+  }
+  #details {
+    border: 1px solid black;
+    background-color: greenyellow;
+    word-spacing: normal;
+    justify-content: space-between;
+  }
+
+  ul li .edit{
+    display:none;
+  }
+  ul li.edit .edit{
+    display:initial;
+  }
+  ul li.edit .noedit{
+    display:none;
+  }
+</style>

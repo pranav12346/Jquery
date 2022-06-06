@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1 class="heading">Welcome to Jquery tutorial</h1>
+
+    <div class="buttons">
+      <h2 class="subheading">lets have fun with jquery</h2>
+      <div class="btn">
+        <button class="panelClass" data-panelid="panel1">panel1</button>
+        <button class="panelClass" data-panelid="panel2">panel2</button>
+        <button class="panelClass" data-panelid="panel3">panel3</button>
+        <button class="panelClass" data-panelid="panel4">panel4</button>
+      </div>
+    </div>
+    <ul>
+      <li>
+        <div class="mainPanel">
+          <div id="panel1" class="subpanel">
+            <div class="panel-heading">#panel1</div>
+            <div class="panel-body">content</div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="mainPanel">
+          <div id="panel2" class="subpanel">
+            <div class="panel-heading">#panel2</div>
+            <div class="panel-body">content</div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="mainPanel">
+          <div id="panel3" class="subpanel">
+            <div class="panel-heading">#panel3</div>
+            <div class="panel-body">content</div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="mainPanel">
+          <div id="panel4" class="subpanel">
+            <div class="panel-heading">#panel4</div>
+            <div class="panel-body">content</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ul class="main">
+      <li class="list">one</li>
+      <li class="list">two</li>
+      <li class="list">three</li>
+      <li>
+        <ul class="sublist">
+          <li class="childlist">1</li>
+          <li class="childlist">2</li>
+          <li class="childlist">3</li>
+        </ul>
+      </li>
+    </ul>
+  </body>
+</html>
+
+<script>
+  $(function () {
+    var content1 = "this is the reusable jquery based ui panel"
+    $(".panelClass").on("click", function () {
+      var panelId = $(this).attr("data-panelid")
+      $("#" + panelId).toggle()
+
+      $("#" + panelId + ".panel-body").html(content1)
+    })
+    $(".list").on("click", function () {
+      $(this).next().hide()
+    })
+  })
+</script>
+<style>
+  .heading {
+    border: 1px solid black;
+    text-align: center;
+    color: lightgreen;
+  }
+  .subpanel {
+    border: 1px solid black;
+    width: 100px;
+    margin: 20px;
+  }
+  .panel-heading {
+    border: 1px solid green;
+    background-color: yellow;
+  }
+  .subheading {
+    color: white;
+  }
+
+  .buttons {
+    margin: 40px;
+    background-color: green;
+    height: 100px;
+  }
+  li {
+    display: inline-block;
+  }
+  .btn {
+    word-spacing: 20px;
+  }
+  ul.main li {
+    display: list-item;
+    list-style-type: disc;
+  }
+  .list {
+    display: flex;
+  }
+  .childlist {
+    display: flex;
+  }
+  ul.sublist li {
+    display: list-item;
+    list-style-type: circle;
+  }
+</style>

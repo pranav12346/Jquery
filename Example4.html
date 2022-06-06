@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+      integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Jquery image slider program</h1>
+      </div>
+      <div id="slider">
+        <div id="arrow-left" class="arrow">
+          <i class="fas fa-arrow-left fa-3x"></i>
+        </div>
+        <ul class="slides">
+          <li class="slide"><img src="./image1.jpg" /></li>
+          <li class="slide"><img src="./image2.jpg" /></li>
+          <li class="slide"><img src="./image3.jpg" /></li>
+          <li class="slide"><img src="./image4.jpg" /></li>
+          <li class="slide"><img src="./image5.jpg" /></li>
+          <li class="slide"><img src="./image1.jpg" /></li>
+        </ul>
+        <div id="arrow-right" class="arrow">
+          <i class="fas fa-arrow-right fa-3x"></i>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  "use strict"
+  $(function () {
+    var width = 720
+    var animationSpeed = 1000
+    var pause = 1000
+    var slider = $("#slider")
+    var currentSlide = 1
+    var slideContainer = slider.find(".slides")
+    var slides = slideContainer.find(".slide")
+
+    $("#arrow-left").on("click", function () {
+      slideContainer.animate({ left: "-100%" }, animationSpeed, function () {
+        slideContainer.css("left", "-100%")
+        $(".slide").first().before($(".slide").last())
+      })
+    })
+
+    $("#arrow-right").on("click", function () {
+      slideContainer.animate({ left: "-200%" }, animationSpeed, function () {
+        slideContainer.css("left", "-100%")
+        $(".slide").last().after($(".slide").first())
+      })
+    })
+  })
+</script>
+<style>
+  .arrow {
+    cursor: pointer;
+    position: absolute;
+    top: calc(400px - 50%);
+
+    width: 0;
+    height: 0;
+  }
+
+  #arrow-right {
+    right: 580px;
+    margin-right: 10px;
+  }
+  #arrow-left {
+    margin-left: 5px;
+  }
+  #slider {
+    height: 400px;
+    width: 720px;
+    overflow: hidden;
+  }
+  #slider .slides {
+    display: block;
+    margin: 0px;
+    width: 6000px;
+    height: 400px;
+    padding: 0px;
+  }
+  #slider .slide {
+    float: left;
+    list-style-type: none;
+    width: 720px;
+    height: 700px;
+  }
+</style>
